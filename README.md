@@ -1,173 +1,348 @@
-# 🔬 Advanced Autonomous Research Agent
+<div align="center">
 
-A production-grade, multi-agent research system powered by **LangGraph** that autonomously researches any topic using parallel web searches, quality control, and generates comprehensive markdown reports.
+# 🔬 Autonomous Deep Research Agent
 
-![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
-![LangGraph](https://img.shields.io/badge/LangGraph-0.2+-green.svg)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-red.svg)
+### Production-Grade Multi-Agent Research System
+
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![LangGraph](https://img.shields.io/badge/LangGraph-0.2+-00ADD8?style=for-the-badge&logo=chainlink&logoColor=white)](https://langchain-ai.github.io/langgraph/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+*An AI-powered research assistant that autonomously investigates any topic using specialized agents, parallel web searches, and quality-controlled report generation.*
+
+[Features](#-features) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [Usage](#-usage) • [API Reference](#-api-reference)
+
+</div>
+
+---
 
 ## ✨ Features
 
-| Feature | Description |
-|---------|-------------|
-| 🤖 **Multi-Agent Architecture** | 4 specialized agents (Planner, Researcher, Critic, Writer) |
-| ⚡ **Parallel Search** | Concurrent web searches for 3-5x faster research |
-| 🔍 **Multi-Provider Search** | Tavily + Wikipedia + Serper (optional) |
-| ✅ **Quality Control** | Automatic evaluation and iterative refinement |
-| 📊 **Source Scoring** | Relevance and quality scoring for all sources |
-| 🔄 **Iterative Refinement** | Loops until quality threshold is met |
-| 🎨 **Modern Web UI** | Beautiful Streamlit interface with dark theme |
-| 📝 **Citation Management** | APA, MLA, Chicago formatting |
-| 💾 **Auto-Save** | Reports saved with timestamps |
+<table>
+<tr>
+<td width="50%">
 
-## 🏗️ Architecture
+### 🤖 Multi-Agent Architecture
+Four specialized AI agents work together:
+- **Planner** — Creates targeted search strategies
+- **Researcher** — Executes parallel web searches
+- **Critic** — Evaluates quality & completeness
+- **Writer** — Generates structured reports
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    🎯 SUPERVISOR                            │
-│            (Orchestrates the research workflow)             │
-└─────────────────────────────────────────────────────────────┘
-                              │
-         ┌────────────────────┼────────────────────┐
-         ▼                    ▼                    ▼
-┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│  📋 PLANNER     │  │  🔍 RESEARCHER  │  │  🔬 CRITIC      │
-│  Creates search │  │  Parallel web   │  │  Evaluates      │
-│  queries        │  │  searches       │  │  quality        │
-└─────────────────┘  └─────────────────┘  └─────────────────┘
-                              │
-                              ▼
-                    ┌─────────────────┐
-                    │  📝 WRITER      │
-                    │  Generates      │
-                    │  final report   │
-                    └─────────────────┘
-```
+</td>
+<td width="50%">
 
-**Workflow:**
-```
-START → Planner → Researcher → Critic → [needs refinement?] → Writer → END
-                                  ↑              │
-                                  └──────────────┘
-```
+### ⚡ High Performance
+- **Parallel Execution** — 3-5x faster research
+- **Smart Caching** — SQLite-based result caching
+- **Async I/O** — Non-blocking operations
+- **Rate Limiting** — Respects API limits
 
-## 📁 Project Structure
+</td>
+</tr>
+<tr>
+<td width="50%">
 
-```
-├── app.py                 # 🎨 Streamlit Web UI
-├── main.py                # 💻 CLI Entry Point
-├── src/
-│   ├── config.py          # ⚙️ Configuration management
-│   ├── state.py           # 📊 State definitions
-│   ├── graph.py           # 🔄 LangGraph workflow
-│   ├── agents/
-│   │   ├── base.py        # Base agent class
-│   │   ├── planner.py     # 📋 Research planner
-│   │   ├── researcher.py  # 🔍 Parallel searcher
-│   │   ├── critic.py      # 🔬 Quality evaluator
-│   │   └── writer.py      # 📝 Report generator
-│   └── tools/
-│       └── search.py      # 🔍 Search providers
-├── api/
-│   └── main.py            # 🌐 FastAPI backend
-├── reports/               # 📄 Generated reports
-├── requirements.txt
-└── .env.example
-```
+### 🔍 Advanced Research
+- **Multi-Provider Search** — Tavily + Wikipedia + Serper
+- **Quality Scoring** — 1-10 relevance ratings
+- **Fact Checking** — Cross-reference validation
+- **Iterative Refinement** — Auto-improves weak results
+
+</td>
+<td width="50%">
+
+### 🎨 Modern Interface
+- **Streamlit Web UI** — Beautiful dark theme
+- **Real-time Streaming** — Live progress updates
+- **CLI Support** — Full command-line interface
+- **REST API** — FastAPI with WebSocket
+
+</td>
+</tr>
+</table>
+
+---
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### Prerequisites
+
+- Python 3.11 or higher
+- [Tavily API Key](https://tavily.com) (free tier available)
+- [Anthropic](https://console.anthropic.com) or [OpenAI](https://platform.openai.com) API key
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/autonomous-research-agent.git
+cd autonomous-research-agent
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
-```
 
-### 2. Configure API Keys
-
-```bash
+# Configure API keys
 cp .env.example .env
+# Edit .env with your API keys
 ```
 
-Edit `.env` with your keys:
-```env
-TAVILY_API_KEY=your_key_here
-ANTHROPIC_API_KEY=your_key_here
-# or
-OPENAI_API_KEY=your_key_here
-LLM_PROVIDER=anthropic
-```
+### Run the Application
 
-### 3. Run the Application
+<table>
+<tr>
+<td>
 
-**🎨 Web UI (Recommended):**
+**🎨 Web Interface**
 ```bash
 streamlit run app.py
 ```
+Opens at `http://localhost:8501`
 
-**💻 Command Line:**
+</td>
+<td>
+
+**💻 Command Line**
 ```bash
 python main.py "Your research topic"
 ```
 
-**🌐 API Server:**
+</td>
+<td>
+
+**🌐 API Server**
 ```bash
 uvicorn api.main:app --reload
 ```
+Opens at `http://localhost:8000`
 
-## 📸 Screenshots
+</td>
+</tr>
+</table>
 
-The Streamlit UI features:
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                        🎯 WORKFLOW ORCHESTRATOR                      │
+│                    (LangGraph State Machine)                         │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+│  📋 PLANNER   │           │ 🔍 RESEARCHER │           │  🔬 CRITIC    │
+│               │           │               │           │               │
+│ • Analyze     │     ┌────▶│ • Parallel    │           │ • Score       │
+│   topic       │     │     │   search      │           │   quality     │
+│ • Generate    │─────┘     │ • Multi-      │──────────▶│ • Check       │
+│   queries     │           │   provider    │           │   coverage    │
+│ • Strategy    │           │ • Rate &      │           │ • Suggest     │
+│   planning    │           │   cache       │           │   refinements │
+└───────────────┘           └───────────────┘           └───────┬───────┘
+                                                                │
+                            ┌───────────────┐                   │
+                            │  📝 WRITER    │◀──────────────────┘
+                            │               │
+                            │ • Structure   │
+                            │   report      │
+                            │ • Citations   │
+                            │ • Formatting  │
+                            └───────────────┘
+```
+
+### Workflow
+
+1. **Planning** → Planner breaks topic into 3-5 targeted search queries
+2. **Research** → Researcher executes queries in parallel via Tavily + Wikipedia
+3. **Evaluation** → Critic scores quality (completeness, diversity, consistency)
+4. **Refinement** → If score < 7/10, loops back with improvement suggestions
+5. **Writing** → Writer compiles sources into structured markdown report
+
+---
+
+## 📁 Project Structure
+
+```
+autonomous-research-agent/
+│
+├── 🎨 app.py                 # Streamlit Web UI
+├── 💻 main.py                # CLI Entry Point
+├── 📦 pyproject.toml         # Project configuration
+│
+├── src/                      # Core Package
+│   ├── config.py             # Configuration management
+│   ├── state.py              # State definitions
+│   ├── graph.py              # LangGraph workflow
+│   │
+│   ├── agents/               # Specialized Agents
+│   │   ├── base.py           # Base agent class
+│   │   ├── planner.py        # Research planning
+│   │   ├── researcher.py     # Parallel search
+│   │   ├── critic.py         # Quality evaluation
+│   │   └── writer.py         # Report generation
+│   │
+│   └── tools/                # Utilities
+│       ├── search.py         # Search providers
+│       └── cache.py          # SQLite caching
+│
+├── api/                      # REST API
+│   └── main.py               # FastAPI + WebSocket
+│
+├── tests/                    # Test Suite
+├── reports/                  # Generated Reports
+└── data/                     # Cache Storage
+```
+
+---
+
+## 💻 Usage
+
+### Web Interface
+
+The Streamlit UI provides the most user-friendly experience:
+
+```bash
+streamlit run app.py
+```
+
+**Features:**
 - 🌙 Modern dark theme with glassmorphism
 - 📊 Real-time quality metrics
 - 📋 Live agent activity log
 - 📥 One-click report download
-- 📈 Research statistics
 
-## ⚙️ Configuration
+### Command Line
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `TAVILY_API_KEY` | Tavily search API key | Required |
-| `ANTHROPIC_API_KEY` | Claude API key | - |
-| `OPENAI_API_KEY` | OpenAI API key | - |
-| `LLM_PROVIDER` | `anthropic` or `openai` | `anthropic` |
-| `SERPER_API_KEY` | Google search (optional) | - |
+```bash
+# Basic usage
+python main.py "Impact of quantum computing on cryptography"
 
-## 🔧 Advanced Usage
+# With options
+python main.py --output ./my_reports --max-revisions 3 "AI in healthcare"
+```
+
+**Options:**
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--output, -o` | Output directory | `reports/` |
+| `--max-revisions, -r` | Max refinement loops | `2` |
 
 ### Programmatic API
 
 ```python
 from src.graph import run_research
 
-result = run_research("Impact of AI on healthcare")
+# Run research
+result = run_research("Climate change mitigation strategies")
+
+# Access results
 print(result["final_report"])
-print(f"Quality Score: {result['quality_report']['overall_score']}")
+print(f"Quality: {result['quality_report']['overall_score']}/10")
+print(f"Sources: {len(result['sources'])}")
 ```
 
-### Custom Configuration
+---
+
+## 🌐 API Reference
+
+### REST Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/research/start` | Start new research session |
+| `GET` | `/api/research/{id}` | Get session status |
+| `POST` | `/api/research/{id}/approve` | Approve research plan |
+| `GET` | `/api/research/{id}/report` | Get final report |
+
+### WebSocket
+
+```javascript
+const ws = new WebSocket('ws://localhost:8000/ws/research/{session_id}');
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  // Types: 'message', 'status', 'plan', 'quality', 'complete'
+  console.log(data.type, data.content);
+};
+```
+
+---
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `TAVILY_API_KEY` | Tavily search API | ✅ |
+| `ANTHROPIC_API_KEY` | Claude API key | One of these |
+| `OPENAI_API_KEY` | OpenAI API key | required |
+| `LLM_PROVIDER` | `anthropic` or `openai` | Default: `anthropic` |
+| `SERPER_API_KEY` | Google Search (optional) | ❌ |
+
+### Advanced Configuration
 
 ```python
 from src.config import get_config
 
 config = get_config()
+
+# Search settings
 config.search.max_results_per_query = 10
+config.search.max_parallel_searches = 8
+
+# Quality thresholds
 config.quality.min_quality_score = 8.0
+config.quality.max_refinement_iterations = 3
+
+# Cache settings
+config.cache.ttl_hours = 48
 ```
-
-## 🧪 How It Works
-
-1. **Planner Agent** analyzes your topic and generates 3-5 targeted search queries
-2. **Researcher Agent** executes queries in parallel using Tavily + Wikipedia
-3. **Critic Agent** evaluates research quality (completeness, diversity, consistency)
-4. If quality < 7/10, loops back to Planner for refinement
-5. **Writer Agent** compiles everything into a structured markdown report
-
-## 📄 License
-
-MIT License - feel free to use and modify!
 
 ---
 
-Built with ❤️ using LangGraph, Streamlit, and Tavily
+## 🧪 Testing
+
+```bash
+# Run all tests
+pytest tests/ -v
+
+# Run with coverage
+pytest tests/ --cov=src --cov-report=html
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+**Built with ❤️ using [LangGraph](https://langchain-ai.github.io/langgraph/), [Streamlit](https://streamlit.io), and [Tavily](https://tavily.com)**
+
+⭐ Star this repo if you find it useful!
+
+</div>
