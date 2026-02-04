@@ -1,0 +1,68 @@
+# Autonomous Deep Research Agent - Git Ignore
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Generated reports (optional - uncomment to ignore)
+# reports/
+
+# Logs
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# mypy
+.mypy_cache/
