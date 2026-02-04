@@ -1,11 +1,17 @@
 # Autonomous Deep Research Agent - Git Ignore
 
-# Environment and secrets
+# ===========================================
+# Environment and Secrets
+# ===========================================
 .env
 .env.local
 .env.*.local
+*.pem
+*.key
 
+# ===========================================
 # Python
+# ===========================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -26,14 +32,20 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# Virtual environments
+# ===========================================
+# Virtual Environments
+# ===========================================
 venv/
 ENV/
 env/
 .venv/
+.conda/
 
+# ===========================================
 # IDE / Editor
+# ===========================================
 .vscode/
 .idea/
 *.swp
@@ -42,27 +54,66 @@ env/
 .project
 .pydevproject
 .settings/
+*.sublime-project
+*.sublime-workspace
 
-# OS files
+# ===========================================
+# OS Files
+# ===========================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# Generated reports (optional - uncomment to ignore)
-# reports/
+# ===========================================
+# Generated Reports (keep folder, ignore contents)
+# ===========================================
+reports/*.md
+reports/*.pdf
+reports/*.html
+!reports/.gitkeep
 
+# ===========================================
+# Data/Cache
+# ===========================================
+data/*.db
+data/*.sqlite
+!data/.gitkeep
+
+# ===========================================
 # Logs
+# ===========================================
 *.log
+logs/
 
+# ===========================================
 # Testing
+# ===========================================
 .pytest_cache/
 .coverage
 htmlcov/
 .tox/
 .nox/
+coverage.xml
+*.cover
 
-# Jupyter Notebooks
+# ===========================================
+# Jupyter
+# ===========================================
 .ipynb_checkpoints/
 
-# mypy
+# ===========================================
+# Type Checking
+# ===========================================
 .mypy_cache/
+.pytype/
+
+# ===========================================
+# Build Artifacts
+# ===========================================
+*.manifest
+*.spec
