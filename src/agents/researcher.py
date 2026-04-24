@@ -12,7 +12,7 @@ from datetime import datetime
 from .base import BaseAgent
 from ..state import AgentState, Source
 from ..config import get_config
-from ..tools.search import SearchProvider, TavilySearch, WikipediaSearch
+from ..tools.search import SearchProvider, TavilySearch, WikipediaSearch, SerperSearch, ExaSearch
 
 
 class ResearcherAgent(BaseAgent):
@@ -38,7 +38,15 @@ class ResearcherAgent(BaseAgent):
         # Always add Tavily if available
         if config.tavily_api_key:
             self.providers.append(TavilySearch(config.tavily_api_key))
-            
+
+        # Add Serper if configured
+        if config.serper_api_key:
+            self.providers.append(SerperSearch(config.serper_api_key))
+
+        # Add Exa if configured (neural search with full-text/highlights/summary)
+        if config.exa_api_key:
+            self.providers.append(ExaSearch(config.exa_api_key))
+
         # Add Wikipedia for factual grounding
         self.providers.append(WikipediaSearch())
         
