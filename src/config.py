@@ -65,6 +65,7 @@ class Config:
     anthropic_api_key: str = field(default_factory=lambda: os.getenv("ANTHROPIC_API_KEY", ""))
     openai_api_key: str = field(default_factory=lambda: os.getenv("OPENAI_API_KEY", ""))
     serper_api_key: str = field(default_factory=lambda: os.getenv("SERPER_API_KEY", ""))
+    exa_api_key: str = field(default_factory=lambda: os.getenv("EXA_API_KEY", ""))
     
     # Sub-configurations
     llm: LLMConfig = field(default_factory=LLMConfig)
