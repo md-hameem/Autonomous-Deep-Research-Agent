@@ -38,6 +38,10 @@ class SearchConfig:
     max_parallel_searches: int = 5
     retry_attempts: int = 3
     retry_delay: float = 1.0
+    parallel_enabled: bool = field(
+        default_factory=lambda: os.getenv("PARALLEL_SEARCH_ENABLED", "").lower()
+        in {"1", "true", "yes"}
+    )
 
 
 @dataclass  
@@ -85,7 +89,7 @@ class Config:
         """Validate configuration and return list of errors."""
         errors = []
         
-        if not self.tavily_api_key:
+        if not self.tavily_api_key and not self.search.parallel_enabled:
             errors.append("TAVILY_API_KEY is required")
             
         if self.llm.provider == "anthropic" and not self.anthropic_api_key:

@@ -70,7 +70,7 @@ Four specialized AI agents work together:
 ### Prerequisites
 
 - Python 3.11 or higher
-- [Tavily API Key](https://tavily.com) (free tier available)
+- [Tavily API Key](https://tavily.com) (free tier available), or enable [Parallel search](#optional-parallel-search)
 - [Anthropic](https://console.anthropic.com) or [OpenAI](https://platform.openai.com) API key
 
 ### Installation
@@ -282,11 +282,39 @@ ws.onmessage = (event) => {
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `TAVILY_API_KEY` | Tavily search API | ✅ |
+| `TAVILY_API_KEY` | Tavily search API | Unless Parallel is enabled |
+| `PARALLEL_SEARCH_ENABLED` | Add anonymous Parallel search | Default: `false` |
 | `ANTHROPIC_API_KEY` | Claude API key | One of these |
 | `OPENAI_API_KEY` | OpenAI API key | required |
 | `LLM_PROVIDER` | `anthropic` or `openai` | Default: `anthropic` |
 | `SERPER_API_KEY` | Google Search (optional) | ❌ |
+
+### Optional Parallel Search
+
+Enable free web search with [Parallel Search MCP](https://docs.parallel.ai/integrations/mcp/search-mcp)
+by adding this to `.env` before starting the application:
+
+```dotenv
+PARALLEL_SEARCH_ENABLED=true
+```
+
+No Parallel account or API key is needed. Anonymous searches use Fast mode and
+have free-tier rate limits. You can omit `TAVILY_API_KEY` when Parallel is enabled;
+if you keep it, both providers run alongside Wikipedia. Your LLM API key is still
+required. Leave this setting unset or set it to `false` to keep the existing
+Tavily and Wikipedia setup.
+
+Start the CLI as usual, for example:
+
+```bash
+python main.py "Recent advances in quantum error correction"
+```
+
+The researcher sends each planned query to `https://search.parallel.ai/mcp`
+using Streamable HTTP and turns search excerpts into sources for scoring and
+report generation. Each search has a 30-second timeout; failed or rate-limited
+searches contribute no sources while other providers continue. This integration
+uses `web_search` only.
 
 ### Advanced Configuration
 

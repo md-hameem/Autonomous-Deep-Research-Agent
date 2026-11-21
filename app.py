@@ -163,13 +163,21 @@ def render_sidebar():
         
         # Check API keys
         import os
+        from src.config import get_config
+
         tavily_ok = bool(os.getenv("TAVILY_API_KEY"))
+        parallel_enabled = get_config().search.parallel_enabled
         llm_ok = bool(os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY"))
         
         if tavily_ok:
             st.success("✅ Tavily API: Connected")
+        elif parallel_enabled:
+            st.info("Tavily API: Not configured (optional with Parallel)")
         else:
             st.error("❌ Tavily API: Not configured")
+
+        if parallel_enabled:
+            st.success("✅ Parallel Search: Enabled (anonymous)")
             
         if llm_ok:
             st.success("✅ LLM API: Connected")

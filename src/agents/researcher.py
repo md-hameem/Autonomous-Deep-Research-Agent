@@ -13,6 +13,7 @@ from .base import BaseAgent
 from ..state import AgentState, Source
 from ..config import get_config
 from ..tools.search import SearchProvider, TavilySearch, WikipediaSearch
+from ..tools.parallel_search import ParallelSearch
 
 
 class ResearcherAgent(BaseAgent):
@@ -38,6 +39,9 @@ class ResearcherAgent(BaseAgent):
         # Always add Tavily if available
         if config.tavily_api_key:
             self.providers.append(TavilySearch(config.tavily_api_key))
+
+        if config.search.parallel_enabled:
+            self.providers.append(ParallelSearch())
             
         # Add Wikipedia for factual grounding
         self.providers.append(WikipediaSearch())
